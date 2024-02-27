@@ -5,6 +5,8 @@
   "type": "module",
   "main": "index.js",
   "scripts": {
+    "start": "npx dotenv -e .env.development node index.js",
+    "start:dev": "npx dotenv -e .env.development nodemon index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
@@ -12,7 +14,14 @@
   "license": "ISC",
   "dependencies": {
     "@prisma/client": "^5.10.2",
+    "bcryptjs": "^2.4.3",
+    "cors": "^2.8.5",
     "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.2",
     "prisma": "^5.10.2"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "dotenv-cli": "^7.3.0"
   }
 }
