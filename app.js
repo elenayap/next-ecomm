@@ -89,6 +89,7 @@ app.post('/users', async (req, res) => {
   prisma.user.create({
     data
   }).then(user => {
+    // If created correct, return success
     return res.json(filtered(user, 'id', 'name', 'email'));
 
   }).catch(err => {
@@ -110,7 +111,7 @@ app.post('/signin',async (req,res) => {
   console.log(data)
   const validationErrors = validateLogin(data)
 
-  if (Object.keys(validationErrors).length != 0) return res.status(400).send({
+  if (Object.keys(validationErrors).length != 0) return res.status(401).send({
     error: validationErrors
   })
 
@@ -141,9 +142,9 @@ const userFiltered = filtered(user, 'id', 'name', 'email')
 })
 
 
-
+export default app // added this for test
 
 // Start the server
-app.listen(port, () => {
-  console.log(`App started; listening on port ${port}`)
-});
+// app.listen(port, () => {
+//   console.log(`App started; listening on port ${port}`)
+// });
