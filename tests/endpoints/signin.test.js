@@ -57,7 +57,7 @@ it("with accessToken correct return", async () => {
 
 //test sign in endpoint
       const response = await request(app)
-      .post("/signin")
+      .post("/auth")
       .send(user) 
       .set('Accept', 'application/json')
       expect(response.statusCode).toBe(200);
@@ -75,7 +75,7 @@ it("with wrong email should fail return 401", async () => {
     .set('Accept', 'application/json') //expecting json respond
 
     const response = await request(app)
-      .post("/signin")
+      .post("/auth")
       .send(user)
       .set('Accept', 'application/json')
       expect(response.statusCode).toBe(401);
@@ -93,7 +93,7 @@ it("with wrong password should fail", async () => {
     .set('Accept', 'application/json') //expecting json respond
 
     const response = await request(app)
-      .post("/signin")
+      .post("/auth")
       .send(user)
       .set('Accept', 'application/json')
       expect(response.statusCode).toBe(401);

@@ -1,6 +1,7 @@
 import jwt from 'jsonwebtoken'
 const accessTokenSecret = process.env.APP_SECRET
-
+//The payload parameter is the data you want to include in the token
+//user information like the userId,name,email
 export function signAccessToken(payload) {
   return new Promise((resolve, reject) => {
     jwt.sign({ payload }, accessTokenSecret, {
