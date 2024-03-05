@@ -37,4 +37,15 @@ router.post('/', async (req, res) => {
     })
   })
 
+
+  router.get('/:id', async (req, res) => {
+    const id = parseInt(req.params.id);
+    const user = await prisma.user.findUnique({
+      where:{
+        id : id 
+      }
+    })
+    return (res.json(user))
+  })
+  
   export default router
