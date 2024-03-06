@@ -10,12 +10,12 @@ const router = express.Router()
 router.post('/',auth, async(req,res) => {
     const data = req.body;
     // console.log(req.user.payload.id)
-    // console.log(data)
+    console.log(data)
 
     prisma.image.create({
         data: {
-            userId: req.user.payload.id,
-            ...data // ...data is using the spread syntax to include all properties of the data object into the new object
+          userId: req.user.payload.id,
+          ...data // ...data is using the spread syntax to include all properties of the data object into the new object 
         }
 
     }).then(image => {

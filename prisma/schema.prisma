@@ -18,15 +18,17 @@ model User {
   name     String?
   email    String  @unique
   password String?
-  Image    Image[]
+  image    Image[]
 }
 
 model Image {
   id                Int     @id @default(autoincrement())
   user              User?   @relation(fields: [userId], references: [id])
   userId            Int
-  image_title       String?
+  image_title       String
   image_description String?
-  image_price       String?
-  image_url         String? @unique
+  image_price       Int
+  image_url         String @unique
 }
+
+
