@@ -20,6 +20,7 @@ router.post('/',auth, async(req,res) => {
 
     }).then(image => {
         return res.json(image);
+
     }).catch(err => {
         if (err instanceof Prisma.PrismaClientKnownRequestError && err.code === 'P2002') {
           const formattedError = {}
@@ -31,7 +32,7 @@ router.post('/',auth, async(req,res) => {
         }
         throw err  // if this happens, our backend application will crash and not respond to the client. because we don't recognize this error yet, we don't know how to handle it in a friendly manner. we intentionally throw an error so that the error monitoring service we'll use in production will notice this error and notify us and we can then add error handling to take care of previously unforeseen errors.
       })
-    })
+    });
 
 //anyone can view image
 router.get('/', async (req,res) => {
@@ -86,28 +87,25 @@ router.get('/:id',async(req,res) => {
 
 
 //user who upload image can delete image by imageId
-router.delete('/:id', auth, async (req, res) => {
-   
+router.delete('/:id', async (req, res) => {
+  const id = parseInt(req.params.id);
   const image = await prisma.image.findUnique({
       where: {
-        id: parseInt(req.params.id)
+        id: id
       }
-    })
+    });
 
     // we have access to `req.user` from our auth middleware function (see code above where the assignment was made)
-    if (req.user.payload.id != image.userId) {
-        return res.status(401).send({"error": "Unauthorized"});
+    if(!image) {
+      return res.status(404).send({"error": "Image not found"});
     }
-    // if(!image) {
-    //   return res.status(404).send({"error": "Image not found"});
-    // }
     // Perform actions when the user is authorized
         //  delete the image
-        const deletedImage = await prisma.image.delete({
+       await prisma.image.delete({
              where: {
-                 id: parseInt(req.params.id)
+                 id: id
              }
-         })
+         });
         // Send a success response
          return res.status(200).send({ "message": "Image deleted successfully" });
     });

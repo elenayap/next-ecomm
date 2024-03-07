@@ -11,9 +11,12 @@ import morgan from "morgan"
 import auth from "./src/middlewares/auth.js" 
 import imageRouter from "./src/controllers/image.controllers.js"
 
-const app = express()
+const app = express();
 // const port = process.env.PORT || 8080
 
+
+
+// app.use(cors(corsOptions));
 app.use(express.json());
 app.use(cors());// Use CORS middleware
 app.use('/users', userRouter);
