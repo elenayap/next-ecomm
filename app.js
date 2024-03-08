@@ -10,9 +10,12 @@ import authRouter from "./src/controllers/auth.controllers.js"
 import morgan from "morgan"
 import auth from "./src/middlewares/auth.js" 
 import imageRouter from "./src/controllers/image.controllers.js"
+import paymentRouter from "./src/controllers/payment.controllers.js"
+
 
 const app = express();
 // const port = process.env.PORT || 8080
+
 
 
 
@@ -22,6 +25,7 @@ app.use(cors());// Use CORS middleware
 app.use('/users', userRouter);
 app.use('/auth', authRouter);
 app.use('/image', imageRouter);
+app.use('/payment',paymentRouter);
 
 app.use(morgan('combined'));
 
