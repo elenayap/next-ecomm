@@ -1,37 +1,33 @@
-import express from "express"
-import prisma from "./src/utils/prisma.js"
-import { Prisma } from "@prisma/client"
-import bcrypt from "bcryptjs"
-import cors from "cors"
-import { signAccessToken } from "./src/utils/jwt.js"
+import express from "express";
+import prisma from "./src/utils/prisma.js";
+import { Prisma } from "@prisma/client";
+import bcrypt from "bcryptjs";
+import cors from "cors";
+import { signAccessToken } from "./src/utils/jwt.js";
 // import { filter } from '../utils/common.js'
-import userRouter from "./src/controllers/users.controllers.js"
-import authRouter from "./src/controllers/auth.controllers.js"
-import morgan from "morgan"
-import auth from "./src/middlewares/auth.js" 
-import imageRouter from "./src/controllers/image.controllers.js"
-import paymentRouter from "./src/controllers/payment.controllers.js"
-
+import userRouter from "./src/controllers/users.controllers.js";
+import authRouter from "./src/controllers/auth.controllers.js";
+import morgan from "morgan";
+import auth from "./src/middlewares/auth.js";
+import imageRouter from "./src/controllers/image.controllers.js";
+import paymentRouter from "./src/controllers/payment.controllers.js";
 
 const app = express();
 // const port = process.env.PORT || 8080
 
-
-
-
 // app.use(cors(corsOptions));
 app.use(express.json());
-app.use(cors());// Use CORS middleware
-app.use('/users', userRouter);
-app.use('/auth', authRouter);
-app.use('/image', imageRouter);
-app.use('/payment',paymentRouter);
+app.use(cors()); // Use CORS middleware
+app.use("/users", userRouter);
+app.use("/auth", authRouter);
+app.use("/image", imageRouter);
+app.use("/payment", paymentRouter);
 
-app.use(morgan('combined'));
+app.use(morgan("combined"));
 
-app.get('/protected', auth, (req, res) => {
-    res.json({ "hello": "world" })
-  })
+app.get("/protected", auth, (req, res) => {
+  res.json({ hello: "world" });
+});
 //view all users endpoint
 // app.get('/', async (req, res) => {
 //   const allUsers = await prisma.user.findMany()
@@ -57,9 +53,6 @@ app.get('/protected', auth, (req, res) => {
 //   return validationErrors
 // }
 
-
-
-
 // function validateUser(input) {
 //   const validationErrors = {}
 
@@ -79,14 +72,12 @@ app.get('/protected', auth, (req, res) => {
 //     validationErrors['password'] = 'should be at least 8 characters'
 //   }
 
-
 //   if ('email' in input && !input['email'].match(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/)) {
 //     validationErrors['email'] = 'is invalid'
 //   }
 
 //   return validationErrors
 // }
-
 
 // function filtered(user) {
 //   const { id, name, email } = user;
@@ -136,20 +127,20 @@ app.get('/protected', auth, (req, res) => {
 //   const user = await prisma.user.findUnique({
 //     where: {
 //       email: data.email
-//     } 
-  
+//     }
+
 // });
 // //user not found return error message
 // if (!user) return res.status(401).send({
 //   error: 'Email address or password not valid'
-// }) 
+// })
 
 // //if found,compare passwords
 // const checkPassword = bcrypt.compareSync(data.password, user.password)
 
 // // If password does not match, return error
-// if (!checkPassword) return res.status(401).send({ 
-//   error: 'Email address or password not valid' 
+// if (!checkPassword) return res.status(401).send({
+//   error: 'Email address or password not valid'
 // })
 
 // // If email and password are correct, return success
@@ -159,8 +150,7 @@ app.get('/protected', auth, (req, res) => {
 //   return res.json({ accessToken,userId })
 // })
 
-
-export default app // added this for test
+export default app; // added this for test
 
 // Start the server
 // app.listen(port, () => {
